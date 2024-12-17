@@ -31,6 +31,9 @@ autolabeler:
   - label: 'chore'
     branch:
       - '/(chore|debt|techdebt)\/.+/'
+  - label: 'techdebt'
+    branch:
+      - '/(chore|debt|techdebt)\/.+/'
   - label: 'bug'
     branch:
       - '/(fix|bug)\/.+/'
