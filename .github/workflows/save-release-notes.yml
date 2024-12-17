@@ -17,7 +17,7 @@ jobs:
         with:
           script: |
             const releaseNotes = context.payload.release.body;
-            const fileName = context.params.fileName || 'frontend/src/components/ReleaseNotes/release-notes.md';
+            const fileName = 'frontend/src/components/ReleaseNotes/release-notes.md';
             
             await context.octokit.rest.repos.createFile({
               owner: context.repo.owner,
