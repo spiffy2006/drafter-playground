@@ -1,0 +1,35 @@
+name: Save Release Notes
+
+on:
+  release:
+    types: [created, edited]
+
+jobs:
+  save-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Save Release Notes
+        id: savereleasenotes
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const releaseNotes = context.payload.release.body;
+            const fileName = context.params.fileName || 'frontend/src/components/ReleaseNotes/release-notes.md';
+            
+            await context.octokit.rest.repos.createFile({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: fileName,
+              message: 'Update release notes',
+              content: Buffer.from(releaseNotes).toString('base64'),
+              sha: context.repo.sha
+            });
+
+      - name: Set Output
+        uses: actions/core@v1
+        with:
+          name: ReleaseNotesFile
+          value: ${{ steps.savereleasenotes.outputs.file }}
