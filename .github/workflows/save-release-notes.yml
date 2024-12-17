@@ -7,7 +7,7 @@ on:
 jobs:
   save-release-notes:
     runs-on: ubuntu-latest
-    permissions: write
+    permissions: write-all
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
