@@ -13,13 +13,13 @@ jobs:
 
       - name: Save Release Notes
         id: savereleasenotes
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const releaseNotes = context.payload.release.body;
             const fileName = 'frontend/src/components/ReleaseNotes/release-notes.md';
             
-            await context.octokit.rest.repos.createFile({
+            await github.rest.repos.createFile({
               owner: context.repo.owner,
               repo: context.repo.repo,
               path: fileName,
