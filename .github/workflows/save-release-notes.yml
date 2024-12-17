@@ -19,7 +19,7 @@ jobs:
             const releaseNotes = context.payload.release.body;
             const fileName = 'frontend/src/components/ReleaseNotes/release-notes.md';
             
-            await github.rest.repos.createFile({
+            await github.rest.repos.createOrUpdateFileContents({
               owner: context.repo.owner,
               repo: context.repo.repo,
               path: fileName,
