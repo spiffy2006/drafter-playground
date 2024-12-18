@@ -1,8 +1,8 @@
 export const ReleastNotesMD = `## What's New
 
-* add date pls
+* actually work, k?
 `;
 
-export const ReleaseVersion = "v4.1.3";
+export const ReleaseVersion = "v4.1.4";
 
-const ReleaseTime = new Date().getTime();
+export const ReleaseTime = 1734562185863;
