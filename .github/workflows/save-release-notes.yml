@@ -19,12 +19,22 @@ jobs:
           script: |
             const releaseNotes = `export const ReleastNotesMD = ${"`"}${context.payload.release.body}${"`"};` + "\n\n" + `export const ReleaseVersion = "${context.payload.release.tag_name}";`;
             const fileName = 'frontend/src/components/ReleaseNotes/ReleastNotesMD.js';
-            
+            let sha;
+
+            try {
+              const { data } = await github.rest.repos.getContent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: fileName
+              });
+              sha = data.sha;
+            } catch (e) {}
+
             await github.rest.repos.createOrUpdateFileContents({
               owner: context.repo.owner,
               repo: context.repo.repo,
               path: fileName,
               message: 'Update release notes',
               content: Buffer.from(releaseNotes).toString('base64'),
-              sha: context.repo.sha
+              sha: sha || context.repo.sha
             });
